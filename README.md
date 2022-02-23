@@ -1,11 +1,8 @@
 # Report for assignment 3
-This is a template for your report. You are free to modify it as needed.
-It is not required to use markdown for your report either, but the report
-has to be delivered in a standard, cross-platform format.
 ## Project
-Name:
-URL:
-One or two sentences describing it
+Name: Gson \
+URL: [https://github.com/DD2480-group4-22/gson](https://github.com/DD2480-group4-22/gson) \
+Gson is a library for Java that can be used to convert Java objects into their JSON representation and JSON strings into their Java object equivalent.
 ## Onboarding experience
 Did it build and run as documented?
     
@@ -58,3 +55,5 @@ Where is potential for improvement?
 ## Overall experience
 What are your main take-aways from this project? What did you learn?
 Is there something special you want to mention here?
+## P+
+What did we do for P+
