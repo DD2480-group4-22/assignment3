@@ -52,6 +52,10 @@ Current state according to the Essence standard: ...
 Was the self-assessment unanimous? Any doubts about certain items?
 How have you improved so far?
 Where is potential for improvement?
+
+According to the Essence standard of way-of-working our team is in the "working well" phase. We have established good communication and praxis of how to do the work that flows naturally. When assigned to task each team member is available to help one another if necessary and work flow is even. We have developed a understanding between each other and in the beginning we were all strangers but with regular communication we now know how we work and our strengths. Continue to work as we currently do with open communication and helping each other is the plan to move forward. 
+
+
 ## Overall experience
 What are your main take-aways from this project? What did you learn?
 Is there something special you want to mention here?
