@@ -87,9 +87,18 @@ Carried out refactoring (optional, P+):
 git diff ...
 ## Coverage
 ### Tools
-Document your experience in using a "new"/different coverage tool.
-How well was the tool documented? Was it possible/easy/difficult to
-integrate it with your build environment?
+The tool we used for coverage measurement was OpenClover. It was possible to use it with Maven and since we already used Maven for the project, it was rather easy to integrate it with the build environment. It was well documented and the only thing we had to do was to add this plugin to the pom.xml file:
+```
+<plugin>
+  <groupId>org.openclover</groupId>
+  <artifactId>clover-maven-plugin</artifactId>
+  <version>4.4.1</version>     
+</plugin>
+```
+Then when running this command OpenClover generated HTML files that among other things displayed the coverage of all methods:
+```
+mvn clean clover:setup test clover:aggregate clover:clover
+```
 ### Your own coverage tool
 Show a patch (or link to a branch) that shows the instrumented code to
 gather coverage measurements.
