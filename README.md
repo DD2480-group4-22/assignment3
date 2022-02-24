@@ -30,8 +30,22 @@ CCN: 19 \
 \
 The method is not very long, but still has a very high cyclomatic complexity. The purpose of the method is to skip values in the stream that is not quoted. There are different rules for what it should do if the next character is a certain type of character like a parenthesis or a colon. Since the method has to follow the rules and the rules are a bit complex, then the method becomes complex too. Exceptions are handled by another method that is called for certain cases. If the exception handling would have been done in the method and we think of exceptions as another possible branch, then the CC would probably increase. Most other methods have JavaDoc, but this method does not have any documentation.
 
+3. **doPeek:** (/gson/src/main/java/com/google/gson/stream/JsonReader.java)
+NLOC: 125 \
+CCN: 41 \
+\
+This is the "main" method of the JsonReader. It checks the current token of the Json-file to see what it is and what it should be turned into. Since there are many different types of objects the Json could contain this method is naturally very complex.
+
+4. **parse:** (/gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java)
+Cyclomatic complexity: 32\
+Lines of code Lizard: 113\
+\
+Function for parsing and formatting dates in ISO8601 format. It has to check for many different types of date-formats which leads to the high complexity of the function.
+
+
 Then every group member counted the complexity of one of those methods by hand (in total 5 methods):
-1. **skipUnquotedValue**: CCN =  #decisions - #exitPoints + 2 = 18 - 3 + 2 = 17. 
+1. **skipUnquotedValue**: CCN =  #decisions - #exitPoints + 2 = 18 - 3 + 2 = 17.
+2. **doPeek**: CCN: 43, NLOC: Starts at line 461, ends at line 595. 595 - 461 = 134, with 9 lines of comments or empty space -> 125 lines.
 
 
 ## Refactoring
@@ -60,8 +74,37 @@ its output?
 Show the comments that describe the requirements for the coverage.
 Report of old coverage: [link]
 Report of new coverage: [link]
-Test cases added:
-git diff ...
+Test cases added: \
+1. In **ISO8601Utils.java**:\
+Added test for missing time-zones in ISO8601UtilsTest.java:
+```
+ @Test
+public void testDateHasNoTimeZone() throws ParseException {
+        final String dateStr = "2018-06-25T61:60:62";
+        assertThrows(ParseException.class, new ThrowingRunnable() {
+          @Override
+          public void run() throws Throwable {
+            ISO8601Utils.parse(dateStr, new ParsePosition(0));
+          }
+        });
+}
+```
+
+2. In **ISO8601Utils.java**:\
+Added test for invalid time-zone indicator in ISO8601UtilsTest.java:
+```
+@Test
+public void testDateInvalidTimeZoneFormat() throws ParseException {
+    final String dateStr = "2018-06-25T61:60:62*03:00";
+    assertThrows(ParseException.class, new ThrowingRunnable() {
+         @Override
+         public void run() throws Throwable {
+           ISO8601Utils.parse(dateStr, new ParsePosition(0));
+         }
+   });
+}
+```
+
 Number of test cases added: two per team member (P) or at least four (P+).
 ## Self-assessment: Way of working
 Current state according to the Essence standard: ...
@@ -69,7 +112,7 @@ Was the self-assessment unanimous? Any doubts about certain items?
 How have you improved so far?
 Where is potential for improvement?
 
-According to the Essence standard of way-of-working our team is in the "working well" phase. We have established good communication and praxis of how to do the work that flows naturally. When assigned to task each team member is available to help one another if necessary and work flow is even. We have developed a understanding between each other and in the beginning we were all strangers but with regular communication we now know how we work and our strengths. Continue to work as we currently do with open communication and helping each other is the plan to move forward. 
+According to the Essence standard of way-of-working our team is in the "working well" phase. We have established good communication and praxis of how to do the work that flows naturally. When assigned to task each team member is available to help one another if necessary and work flow is even. We have developed a understanding between each other and in the beginning we were all strangers but with regular communication we now know how we work and our strengths. Continue to work as we currently do with open communication and helping each other is the plan to move forward.
 
 
 ## Overall experience
