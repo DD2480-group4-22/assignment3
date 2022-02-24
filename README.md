@@ -40,13 +40,14 @@ The method is considered to have a very high CC but it does not have so many lin
 NLOC: 125 \
 CCN: 41 \
 \
-One of the main functions of Gson. It reads a JSON object as a stream of tokens. It contains many if-statements and switch-cases which likely leads to the high cyclomatic complexity. This complex function is not super long in terms of code length according to Lizard, only a bit more than a hundred lines. According to the built in word-counter wc JsonReader.java is 1646 lines. This is a big difference from Lizard, but wc counts the lines of the entire document and Lizard only the functions. JsonReader.java contains several functions, which makes wc answer with a much larger number. The code is well documented with JavaDoc and explanations of what each function does. About a hundred lines at the beginning of the JsonReader-document also contains an example of how the code works.
+
+This is the "main" method of the JsonReader. It checks the current token of the Json-file to see what it is and what it should be turned into. Since there are many different types of objects the Json could contain this method is naturally very complex.
 
 6. **parse** (/gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java) \
 NLOC: 113 \
 CCN: 32 \
 \
-This is a function for parsing and formatting dates in ISO8601 format. Contains many if-statements and switch-cases which likely leads to the high CC. The function is well documented with JavaDoc.
+Function for parsing and formatting dates in ISO8601 format. It has to check for many different types of date-formats which leads to the high complexity of the function.
 
 7. **readEscapeCharacter** (/gson/gson/src/main/java/com/google/gson/stream/JsonReader.java) \
 NLOC: 48 \
@@ -121,6 +122,12 @@ public void testDateHasNoTimeZone() throws ParseException {
 }
 ```
 
+**Coverage before test:**
+![](/img/Coverage_Elsa_before_1.png)
+
+**Coverage after test:**
+![](/img/Coverage_Elsa_after_1.png)
+
 2. In **ISO8601Utils.java**:\
 Added test for invalid time-zone indicator in ISO8601UtilsTest.java:
 ```
@@ -135,6 +142,13 @@ public void testDateInvalidTimeZoneFormat() throws ParseException {
    });
 }
 ```
+**Coverage before test:**
+![](/img/Coverage_Elsa_before_2.1.png)
+![](/img/Coverage_Elsa_before_2.2.png)
+
+**Coverage after test:**
+![](/img/Coverage_Elsa_after_2.1.png)
+![](/img/Coverage_Elsa_after_2.2.png)
 
 Number of test cases added: two per team member (P) or at least four (P+).
 ## Self-assessment: Way of working
