@@ -16,6 +16,24 @@ Since everything went good for all of us running the project we continued on it.
 3. What is the purpose of the functions?
 4. Are exceptions taken into account in the given measurements?
 5. Is the documentation clear w.r.t. all the possible outcomes?
+
+With the use of Lizard, every group member identified two methods with high complexity (in total 10 methods):
+1. **nextDouble** (/gson/src/main/java/com/google/gson/stream/JsonReader.java) \
+NLOC: 31 \
+CCN: 12 \
+\
+The method is not very long, but still has a very high cyclomatic complexity. The purpose of the method is to return the double value of the next token in the stream. It contains many if-statements depending on what the next token is and that is what makes the method complex. There is some code duplication between this method and similar methods like nextLong. With refactoring the complexity could probably be lowered for these methods. Exceptions are handled within the method and I think they are taken into account by Lizard. The method has clear documentation in the form of JavaDoc, but it does not document all the different branches.
+
+2. **skipUnquotedValue** (/gson/src/main/java/com/google/gson/stream/JsonReader.java) \
+NLOC: 29 \
+CCN: 19 \
+\
+The method is not very long, but still has a very high cyclomatic complexity. The purpose of the method is to skip values in the stream that is not quoted. There are different rules for what it should do if the next character is a certain type of character like a parenthesis or a colon. Since the method has to follow the rules and the rules are a bit complex, then the method becomes complex too. Exceptions are handled by another method that is called for certain cases. If the exception handling would have been done in the method and we think of exceptions as another possible branch, then the CC would probably increase. Most other methods have JavaDoc, but this method does not have any documentation.
+
+Then every group member counted the complexity of one of those methods by hand (in total 5 methods):
+1. **skipUnquotedValue**: CCN =  #decisions - #exitPoints + 2 = 18 - 3 + 2 = 17. 
+
+
 ## Refactoring
 Plan for refactoring complex code:
 Estimated impact of refactoring (lower CC, but other drawbacks?).
