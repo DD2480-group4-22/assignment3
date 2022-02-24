@@ -40,7 +40,6 @@ The method is considered to have a very high CC but it does not have so many lin
 NLOC: 125 \
 CCN: 41 \
 \
-
 This is the "main" method of the JsonReader. It checks the current token of the Json-file to see what it is and what it should be turned into. Since there are many different types of objects the Json could contain this method is naturally very complex.
 
 6. **parse** (/gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java) \
@@ -130,6 +129,18 @@ the git command that is used to obtain the patch instead:
 git diff ...
 What kinds of constructs does your tool support, and how accurate is
 its output?
+
+Each group member made their own coverage tool for one method
+### Anna
+
+### Elsa
+
+### Jacob
+
+### Nelly
+
+### Oskar
+
 ### Evaluation
 1. How detailed is your coverage measurement?
 2. What are the limitations of your own tool?
@@ -138,7 +149,12 @@ its output?
 Show the comments that describe the requirements for the coverage.
 Report of old coverage: [link]
 Report of new coverage: [link]
-Test cases added: \
+
+Below follows the tests cases each group member added and the changes in coverage it made
+
+### Anna
+
+### Elsa
 1. In **ISO8601Utils.java**:\
 Added test for missing time-zones in ISO8601UtilsTest.java:
 ```
@@ -182,7 +198,79 @@ public void testDateInvalidTimeZoneFormat() throws ParseException {
 ![](/img/Coverage_Elsa_after_2.1.png)
 ![](/img/Coverage_Elsa_after_2.2.png)
 
-Number of test cases added: two per team member (P) or at least four (P+).
+### Jacob
+
+### Nelly
+
+### Oskar
+I added five new test cases for skipUnquotedValue in (/gson/src/main/java/com/google/gson/stream/JsonReader.java). Each one of the tests covers a new branch that was not covered before.
+ 
+1. 
+```
+  @Test
+  public void testSkipUnquotedSlash() throws IOException {
+    JsonReader reader = new JsonReader(reader("[" + 'x' + "/" + "]"));
+    reader.setLenient(true);
+    reader.beginArray();
+    reader.skipValue();
+    reader.endArray();
+    assertEquals(JsonToken.END_DOCUMENT, reader.peek());
+  }
+```
+2. 
+```
+  @Test
+  public void testSkipUnquotedBackslash() throws IOException {
+    JsonReader reader = new JsonReader(reader("[" + 'x' + "\\" + "]"));
+    reader.setLenient(true);
+    reader.beginArray();
+    reader.skipValue();
+    reader.endArray();
+    assertEquals(JsonToken.END_DOCUMENT, reader.peek());
+  }
+```
+3. 
+```
+  @Test
+  public void testSkipUnquotedSemicolon() throws IOException {
+    JsonReader reader = new JsonReader(reader("[" + 'x' + ";" + "]"));
+    reader.setLenient(true);
+    reader.beginArray();
+    reader.skipValue();
+    reader.endArray();
+    assertEquals(JsonToken.END_DOCUMENT, reader.peek());
+  }
+```
+4. 
+```
+  @Test
+  public void testSkipUnquotedHashtag() throws IOException {
+    JsonReader reader = new JsonReader(reader("[" + 'x' + "#" + "]"));
+    reader.setLenient(true);
+    reader.beginArray();
+    reader.skipValue();
+    reader.endArray();
+    assertEquals(JsonToken.END_DOCUMENT, reader.peek());
+  }
+```
+5. 
+```
+  @Test
+  public void testSkipUnquotedEquals() throws IOException {
+    JsonReader reader = new JsonReader(reader("[" + 'x' + "=" + "]"));
+    reader.setLenient(true);
+    reader.beginArray();
+    reader.skipValue();
+    reader.endArray();
+    assertEquals(JsonToken.END_DOCUMENT, reader.peek());
+  }
+```
+In the image below you can see the difference calculated by my own coverage tool between before and after adding the tests:
+![](/img/oskarToolBeforeAfter.png)
+
+Before 6/20 branches are covered and after 11/20 branches are covered.
+
+
 ## Self-assessment: Way of working
 According to the Essence standard of way-of-working our team is in the "working well" phase. We have established good communication and praxis of how to do the work that flows naturally. When assigned to task each team member is available to help one another if necessary and work flow is even. We have developed a understanding between each other and in the beginning we were all strangers but with regular communication we now know how we work and our strengths. Continue to work as we currently do with open communication and helping each other is the plan to move forward.
 
