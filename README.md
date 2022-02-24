@@ -81,10 +81,33 @@ Every group member also counted the complexity of one of their choosen methods b
 * Add comment regarding if the values match Lizard or not
 
 ## Refactoring
-Plan for refactoring complex code:
-Estimated impact of refactoring (lower CC, but other drawbacks?).
-Carried out refactoring (optional, P+):
-git diff ...
+We found five functions with high complexity that all had code duplication between them. These methods are in JsonReader.java and are **peek**(CCN 19), **nextdouble**(CCN 12), **nextInt**(CCN 12), **nextLong**(CCN 11) and **nextString**(CCN 8).
+
+This is the code that is duplicated in all those methods:
+```
+int p = peeked;
+if (p == PEEKED_NONE) {
+      p = doPeek();
+}
+```
+
+and we could refactor all the five methods by making this into its own method
+```
+private int assignP() {
+      int p = peeked;
+      if (p == PEEKED_NONE) {
+           p = doPeek();
+      } 
+      return p;	
+}
+```
+Then in the five methods we would only have to write
+``` 
+int p = assignP();
+```
+This would remove a decision from the methods, which would lower the CCN. One possible drawback is that it might be hard to understand what assignP() means and then you would have to go that method and read the documentation.
+
+
 ## Coverage
 ### Tools
 Document your experience in using a "new"/different coverage tool.
