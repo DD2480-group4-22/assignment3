@@ -351,7 +351,7 @@ According to OpenClover the branch coverage went from 46,4% to 67,9% after addin
 
 ![](/img/OskarCoverageClover.png)
 
-The
+Then in this image you can see which part of the method that gets covered by the new tests:
 
 ![](/img/OskarCoverageBeforeAfter.png)
 
