@@ -369,5 +369,9 @@ According to the Essence standard of way-of-working our team is in the "working 
 
 ## Overall experience
 During the course of this project we learnt a lot. We got the chance to work on a larger code base and experience the challenges of it. We also got a better idea on how it can be to contribute to an open source project. This is probably the main take-away from the project and now we have the knowledge to be able to contribute to more open source projects in the future. Apart from that we also learnt about cyclomatic complexity, branch coverage and refactoring.
+
 ## P+
-What did we do for P+
+This is what we did for P+:
+- We used the issue tracker and systematic commit messages to manage the project
+- Write at least 4 new tests (Only Oskar did)
+- We made a pull request with a new patch of test and refactoring to original gson repo (Waiting for it to get accepted): [new tests](https://github.com/google/gson/pull/2082) and [refactoring](https://github.com/google/gson/pull/2083)
