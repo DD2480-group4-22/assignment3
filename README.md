@@ -233,9 +233,9 @@ Coverage of the method isLiteral before any added test were 71.4% and after the 
 
 
 ### Elsa
-Both tests are in the same file. The new tests are at the end of the file.
-[**Coverage before test**](https://github.com/DD2480-group4-22/gson/blob/ca2ed748ba6e31c4a319ea6f2d2dc7048021f0a0/gson/src/test/java/com/google/gson/internal/bind/util/ISO8601UtilsTest.java)
-[**Coverage after test**](https://github.com/DD2480-group4-22/gson/blob/master/gson/src/test/java/com/google/gson/internal/bind/util/ISO8601UtilsTest.java)
+Both tests are in the same file. The new tests are at the end of the file.\
+[**Coverage before test.**](https://github.com/DD2480-group4-22/gson/blob/ca2ed748ba6e31c4a319ea6f2d2dc7048021f0a0/gson/src/test/java/com/google/gson/internal/bind/util/ISO8601UtilsTest.java) \
+[**Coverage after test.**](https://github.com/DD2480-group4-22/gson/blob/master/gson/src/test/java/com/google/gson/internal/bind/util/ISO8601UtilsTest.java)
 
 1. In **ISO8601Utils.java**:\
 Added test for missing time-zones in ISO8601UtilsTest.java:
