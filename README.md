@@ -16,7 +16,7 @@ Gson is a library for Java that can be used to convert Java objects into their J
 
   (d) Did the build conclude automatically without errors?
     Some of us had a problem where there would be an error when building the project, but it was resolved by using an older version of java.
-    
+
   (e) How well do examples and tests run on your system(s)?
     Building and running the test went smoothly and no unexpected errors occurred. First time it took approximately 2 minutes to build and run the test which seems reasonable, running the test after building took approximately 30 seconds.
 
@@ -102,7 +102,7 @@ Every group member also counted the complexity of one of their choosen methods b
 2. **nextLong**: CCN = E - N + 2 = 15 - 10 + 2 = 7
 3. **doPeek**: CCN = 43
 4. **peek**: CCN = E - N + 2 = 40 - 23 + 2 = 19
-5. **isLiteral**: CCN = (#case + #fallthroughs) - #states + 2 = (17+15) - 17 + 2 = 17 
+5. **isLiteral**: CCN = (#case + #fallthroughs) - #states + 2 = (17+15) - 17 + 2 = 17
 
 * Add comment regarding if the values match Lizard or not
 
@@ -123,12 +123,12 @@ private int assignP() {
       int p = peeked;
       if (p == PEEKED_NONE) {
            p = doPeek();
-      } 
-      return p;	
+      }
+      return p;
 }
 ```
 Then in the five methods we would only have to write
-``` 
+```
 int p = assignP();
 ```
 This would remove a decision from the methods, which would lower the CCN. One possible drawback is that it might be hard to understand what assignP() means and then you would have to go that method and read the documentation.
@@ -233,6 +233,10 @@ Coverage of the method isLiteral before any added test were 71.4% and after the 
 
 
 ### Elsa
+Both tests are in the same file. The new tests are at the end of the file.
+[**Coverage before test**](https://github.com/DD2480-group4-22/gson/blob/ca2ed748ba6e31c4a319ea6f2d2dc7048021f0a0/gson/src/test/java/com/google/gson/internal/bind/util/ISO8601UtilsTest.java)
+[**Coverage after test**](https://github.com/DD2480-group4-22/gson/blob/master/gson/src/test/java/com/google/gson/internal/bind/util/ISO8601UtilsTest.java)
+
 1. In **ISO8601Utils.java**:\
 Added test for missing time-zones in ISO8601UtilsTest.java:
 ```
@@ -282,8 +286,8 @@ public void testDateInvalidTimeZoneFormat() throws ParseException {
 
 ### Oskar
 I added five new test cases for skipUnquotedValue in (/gson/src/main/java/com/google/gson/stream/JsonReader.java). Each one of the tests covers a new branch that was not covered before.
- 
-1. 
+
+1.
 ```
   @Test
   public void testSkipUnquotedSlash() throws IOException {
@@ -295,7 +299,7 @@ I added five new test cases for skipUnquotedValue in (/gson/src/main/java/com/go
     assertEquals(JsonToken.END_DOCUMENT, reader.peek());
   }
 ```
-2. 
+2.
 ```
   @Test
   public void testSkipUnquotedBackslash() throws IOException {
@@ -307,7 +311,7 @@ I added five new test cases for skipUnquotedValue in (/gson/src/main/java/com/go
     assertEquals(JsonToken.END_DOCUMENT, reader.peek());
   }
 ```
-3. 
+3.
 ```
   @Test
   public void testSkipUnquotedSemicolon() throws IOException {
@@ -319,7 +323,7 @@ I added five new test cases for skipUnquotedValue in (/gson/src/main/java/com/go
     assertEquals(JsonToken.END_DOCUMENT, reader.peek());
   }
 ```
-4. 
+4.
 ```
   @Test
   public void testSkipUnquotedHashtag() throws IOException {
@@ -331,7 +335,7 @@ I added five new test cases for skipUnquotedValue in (/gson/src/main/java/com/go
     assertEquals(JsonToken.END_DOCUMENT, reader.peek());
   }
 ```
-5. 
+5.
 ```
   @Test
   public void testSkipUnquotedEquals() throws IOException {
