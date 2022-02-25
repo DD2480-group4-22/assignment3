@@ -159,6 +159,7 @@ its output?
 
 Each group member made their own coverage tool for one method
 ### Anna
+A coverage tool for the method isLiteral in the JsonReder.java, code can be found in the branch "branch_coverage_anna", in JsonReader.java under the method isLiteral (https://github.com/DD2480-group4-22/gson/blob/branch_coverage_anna/gson/src/main/java/com/google/gson/stream/JsonReader.java) and in the JsonReaderTest.java under @afterclass (https://github.com/DD2480-group4-22/gson/blob/branch_coverage_anna/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java). When setting the value to true when a branch is taken (read Oskars text).
 
 ### Elsa
 Made a coverage tool for doPeek in JsonReader.java in the branch branch_coverage_elsa. The code can be found in [JsonReader.java](https://github.com/DD2480-group4-22/gson/blob/branch_coverage_elsa/gson/src/main/java/com/google/gson/stream/JsonReader.java) (the method doPeek() and [JsonReaderTest.java](https://github.com/DD2480-group4-22/gson/blob/branch_coverage_elsa/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java) (at the end of the file, the @AfterClass). Works by setting a value in a boolean array to true if the branch is taken. Read Oskar's text for more info.
@@ -198,6 +199,7 @@ public void testHashtag() throws IOException {
   }
 ```
 **Coverage before test:**
+
 ![](/img/AnnaCoverageBefore1.png)
 
 **Coverage after test:**
