@@ -4,9 +4,24 @@ Name: Gson \
 URL: [https://github.com/DD2480-group4-22/gson](https://github.com/DD2480-group4-22/gson) \
 Gson is a library for Java that can be used to convert Java objects into their JSON representation and JSON strings into their Java object equivalent.
 ## Onboarding experience
-Building the project wasn’t difficult. To build the project either Maven or Gradle has to be installed. The group has used Maven before, it is well documented and easy to use, So therefore we decided to use it. All the dependencies for the project is downloaded and the project is built and tested with "mvn clean package". Some of us had a problem where there would be an error when building the project, but it was resolved by using an older version of java. To build the project Maven is necessary. Building and running the test went smoothly and no unexpected errors occurred. First time it took approximately 2 minutes to build and run the test which seems reasonable, running the test after building took approximately 30 seconds. The project is well documented, but the use of maven isn’t perfectly documented, though using maven is very standardized and well documented so it is easy to know what commands to run to work with the project.
+1. How easily can you build the project? Briefly describe if everything worked as documented or not:
+  (a) Did you have to install a lot of additional tools to build the software?
+    Building the project wasn’t difficult. To build the project either Maven or Gradle has to be installed. The group has used Maven before, it is well documented and easy to use, So therefore we decided to use it.
 
-Since everything went good for all of us running the project we continued on it.
+  (b) Were those tools well documented?
+    The project is well documented, but the use of maven isn’t perfectly documented, though using maven is very standardized and well documented so it is easy to know what commands to run to work with the project.
+
+  (c) Were other components installed automatically by the build script?
+    All the dependencies for the project is downloaded when you run Maven.
+
+  (d) Did the build conclude automatically without errors?
+    Some of us had a problem where there would be an error when building the project, but it was resolved by using an older version of java.
+    
+  (e) How well do examples and tests run on your system(s)?
+    Building and running the test went smoothly and no unexpected errors occurred. First time it took approximately 2 minutes to build and run the test which seems reasonable, running the test after building took approximately 30 seconds.
+
+2. Do you plan to continue or choose another project?
+  Since everything went good for all of us running the project we continued on it.
 
 ## Complexity
 1. What are your results for ten complex functions?
