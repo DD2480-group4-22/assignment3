@@ -104,7 +104,7 @@ Every group member also counted the complexity of one of their choosen methods b
 4. **peek**: CCN = E - N + 2 = 40 - 23 + 2 = 19
 5. **isLiteral**: CCN = (#case + #fallthroughs) - #states + 2 = (17+15) - 17 + 2 = 17
 
-* Add comment regarding if the values match Lizard or not
+* There were three methods were the values of complexity counted by hand did not match the values from lizard. The difference in the methods doPeek and skipUnquotedValue is 2 and the difference for the method nextLong is 4, so it is a marginal difference. 
 
 ## Refactoring
 We found five functions with high complexity that all had code duplication between them. These methods are in JsonReader.java and are **peek**(CCN 19), **nextdouble**(CCN 12), **nextInt**(CCN 12), **nextLong**(CCN 11) and **nextString**(CCN 8).
