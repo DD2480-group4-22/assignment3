@@ -167,11 +167,12 @@ public void testHashtag() throws IOException {
     }
   }
 ```
-**Coverage before test**
+**Coverage before test:**
 ![](/img/AnnaCoverageBefore#.png)
 
-**Coverage after test**
+**Coverage after test:**
 ![](/img/AnnaCoverageAfter#.png)
+
 2. 
 Added test for equals in isLiteral in JsonReaderTest.java
 
