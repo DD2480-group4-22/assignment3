@@ -4,19 +4,20 @@ Name: Gson \
 URL: [https://github.com/DD2480-group4-22/gson](https://github.com/DD2480-group4-22/gson) \
 Gson is a library for Java that can be used to convert Java objects into their JSON representation and JSON strings into their Java object equivalent.
 ## Onboarding experience
-1. How easily can you build the project? Briefly describe if everything worked as documented or not:
+1. How easily can you build the project? Briefly describe if everything worked as documented or not: \
+\
   (a) Did you have to install a lot of additional tools to build the software?
-    Building the project wasn’t difficult. To build the project either Maven or Gradle has to be installed. The group has used Maven before, it is well documented and easy to use, So therefore we decided to use it.
-
+    Building the project wasn’t difficult. To build the project either Maven or Gradle has to be installed. The group has used Maven before, it is well documented and easy to use, So therefore we decided to use it. \
+\
   (b) Were those tools well documented?
-    The project is well documented, but the use of maven isn’t perfectly documented, though using maven is very standardized and well documented so it is easy to know what commands to run to work with the project.
-
+    The project is well documented, but the use of maven isn’t perfectly documented, though using maven is very standardized and well documented so it is easy to know what commands to run to work with the project. \
+\
   (c) Were other components installed automatically by the build script?
-    All the dependencies for the project is downloaded when you run Maven.
-
+    All the dependencies for the project is downloaded when you run Maven. \
+\
   (d) Did the build conclude automatically without errors?
-    Some of us had a problem where there would be an error when building the project, but it was resolved by using an older version of java.
-
+    Some of us had a problem where there would be an error when building the project, but it was resolved by using an older version of java. \
+\
   (e) How well do examples and tests run on your system(s)?
     Building and running the test went smoothly and no unexpected errors occurred. First time it took approximately 2 minutes to build and run the test which seems reasonable, running the test after building took approximately 30 seconds.
 
@@ -104,7 +105,7 @@ Every group member also counted the complexity of one of their choosen methods b
 4. **peek**: CCN = E - N + 2 = 40 - 23 + 2 = 19
 5. **isLiteral**: CCN = (#case + #fallthroughs) - #states + 2 = (17+15) - 17 + 2 = 17
 
-* There were three methods were the values of complexity counted by hand did not match the values from lizard. The difference in the methods doPeek and skipUnquotedValue is 2 and the difference for the method nextLong is 4, so it is a marginal difference.
+There were three methods were the values of complexity counted by hand did not match the values from lizard. The difference in the methods doPeek and skipUnquotedValue is 2 and the difference for the method nextLong is 4, so it is a marginal difference. 
 
 ## Refactoring
 We found five functions with high complexity that all had code duplication between them. These methods are in JsonReader.java and are **peek**(CCN 19), **nextdouble**(CCN 12), **nextInt**(CCN 12), **nextLong**(CCN 11) and **nextString**(CCN 8).
@@ -149,15 +150,7 @@ Then when running this command OpenClover generated HTML files that among other 
 mvn clean clover:setup test clover:aggregate clover:clover
 ```
 ### Your own coverage tool
-Show a patch (or link to a branch) that shows the instrumented code to
-gather coverage measurements.
-The patch is probably too long to be copied here, so please add
-the git command that is used to obtain the patch instead:
-git diff ...
-What kinds of constructs does your tool support, and how accurate is
-its output?
-
-Each group member made their own coverage tool for one method
+Each group member made their own coverage tool for one method:
 ### Anna
 A coverage tool for the method isLiteral in the JsonReder.java, code can be found in the branch "branch_coverage_anna", in JsonReader.java under the method isLiteral (https://github.com/DD2480-group4-22/gson/blob/branch_coverage_anna/gson/src/main/java/com/google/gson/stream/JsonReader.java) and in the JsonReaderTest.java under @afterclass (https://github.com/DD2480-group4-22/gson/blob/branch_coverage_anna/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java). When setting the value to true when a branch is taken (read Oskars text).
 
@@ -177,19 +170,24 @@ Using a boolean array with the size of the number of branch in peek(), so that e
 
 
 ### Oskar
-I made a coverage tool for the method skipUnquotedValue in JsonReader.java. The code can be found in the branch **branch_coverage_oskar** at this link: [https://github.com/DD2480-group4-22/gson/tree/branch_coverage_oskar](https://github.com/DD2480-group4-22/gson/tree/branch_coverage_oskar)
+I made a coverage tool for the method skipUnquotedValue in JsonReader.java. The code can be found in the branch **branch_coverage_oskar** at this link: [https://github.com/DD2480-group4-22/gson/tree/branch_coverage_oskar](https://github.com/DD2480-group4-22/gson/tree/branch_coverage_oskar). The tool can be run using `mvn test` and then the result will be printed in the terminal in the middle of all the maven text.
 
 First I gave every branch of the method a unique ID. Then I made a boolean array with one element for each branch. In the method if a branch was reached its respective element in the array was set to true. Then in the JavaReaderTest class the results are printed out after all tests have been run. To make sure the printCoverage method was run after all tests I used the @AfterClass annotation. This annotation was not available for JUnit3 which the test class used, so I had to convert everything to JUnit4 in order to make it work.
 
 ### Evaluation
-1. How detailed is your coverage measurement?
-2. What are the limitations of your own tool?
-3. Are the results of your tool consistent with existing coverage tools?
-## Coverage improvement
-Show the comments that describe the requirements for the coverage.
-Report of old coverage: [link]
-Report of new coverage: [link]
+1. How detailed is your coverage measurement? \
+\
+The coverage measurement done by our own tools is quite simple compared to tools like OpenClover. It only checks if a branch has been covered or not, while OpenClover counts how many times a branch has been executed.
 
+2. What are the limitations of your own tool? \
+\
+Our tools are limited to a specific method, although it with some work can be transfered to other methods.
+
+3. Are the results of your tool consistent with existing coverage tools? \
+\
+The coverage of specific branches seems to be consistent with OpenClover. We do not know how OpenClover calculates their coverage percentage, so it is hard to know if our percentage would be consistent with their's. 
+
+## Coverage improvement
 Below follows the tests cases each group member added and the changes in coverage it made
 
 ### Anna
@@ -384,6 +382,53 @@ Coverage of nextNonWhitespace:
 ```
 ### Nelly
 My own manually implemented coverage tool is not as detailed as using clover. This is since in clover you can see what specific testing-methods reach each branch and how many times. This can not be seen with mine but only if the branches have been reached, since it is a boolean array. The @AfterClass also only checks after all the tests in that file, but there are other tests in other files that could be executed after printCoveragePeek(). I still get the same results as with clover with what branches have been reached.
+
+Added tests in /gson/src/main/java/com/google/gson/stream/JsonReader.java to improve branch coverage in peek() by covering a branch that was not covered before, as shown in the pictures:
+
+```
+  @Test
+  public void testEmptyStringNameSingleQuoted() throws IOException {
+    JsonReader reader = new JsonReader(reader("{\'\':true}"));
+    reader.setLenient(true);
+    assertEquals(BEGIN_OBJECT, reader.peek());
+    reader.beginObject();
+    assertEquals(NAME, reader.peek());
+    assertEquals("", reader.nextName());
+    assertEquals(JsonToken.BOOLEAN, reader.peek());
+    assertEquals(true, reader.nextBoolean());
+    assertEquals(JsonToken.END_OBJECT, reader.peek());
+      reader.endObject();
+    assertEquals(JsonToken.END_DOCUMENT, reader.peek());
+  }
+```
+**Coverage before test:**
+![](/img/CoverageNellyPeekUnquoted.png)
+
+**Coverage after test:**
+![](/img/CoverageNellyPeekUnquotedAfter.png)
+
+Added tests in /gson/src/main/java/com/google/gson/stream/JsonReader.java to improve branch coverage in nextUnquotedValue() by covering a branch that was not covered before, as shown in the pictures:
+
+```
+  @Test
+  public void testLenientDoubleSemiColon() throws IOException {
+    String json = "[NaN; Infinity; -Infinity]";
+    JsonReader reader = new JsonReader(reader(json));
+    reader.setLenient(true);
+    reader.beginArray();
+    assertTrue(Double.isNaN(reader.nextDouble()));
+    assertEquals(Double.POSITIVE_INFINITY, reader.nextDouble(), 0);
+    assertEquals(Double.NEGATIVE_INFINITY, reader.nextDouble(), 0);
+    reader.endArray();
+  }
+```
+
+**Coverage before test:**
+![](/img/CoverageNellyNextUnquotedValue.png)
+
+**Coverage after test:**
+![](/img/CoverageNellyPeekNUVAfter.png)
+
 
 ### Oskar
 I added five new test cases for skipUnquotedValue in (/gson/src/main/java/com/google/gson/stream/JsonReader.java). Each one of the tests covers a new branch that was not covered before.
