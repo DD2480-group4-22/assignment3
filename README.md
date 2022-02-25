@@ -155,6 +155,9 @@ Each group member made their own coverage tool for one method
 ### Nelly
 
 ### Oskar
+I made a coverage tool for the method skipUnquotedValue in JsonReader.java. The code can be found in the branch **branch_coverage_oskar** at this link: [https://github.com/DD2480-group4-22/gson/tree/branch_coverage_oskar](https://github.com/DD2480-group4-22/gson/tree/branch_coverage_oskar)
+
+First I gave every branch of the method a unique ID. Then I made a boolean array with one element for each branch. In the method if a branch was reached its respective element in the array was set to true. Then in the JavaReaderTest class the results are printed out after all tests have been run. To make sure the printCoverage method was run after all tests I used the @AfterClass annotation. This annotation was not available for JUnit3 which the test class used, so I had to convert everything to JUnit4 in order to make it work.
 
 ### Evaluation
 1. How detailed is your coverage measurement?
