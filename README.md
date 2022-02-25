@@ -175,8 +175,8 @@ Below follows the tests cases each group member added and the changes in coverag
 Added test for equals in isLiteral in JsonReaderTest.java
 
 ```
-  public void testHashtag() throws IOException {
-    JsonReader reader = new JsonReader(reader("[true#true]"));
+  public void testEqual() throws IOException {
+    JsonReader reader = new JsonReader(reader("[true=true]"));
     reader.beginArray();
     try {
       reader.nextBoolean();
