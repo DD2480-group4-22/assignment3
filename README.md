@@ -308,7 +308,7 @@ Added tests in /gson/src/main/java/com/google/gson/stream/JsonReader.java to imp
 ![](/img/CoverageNellyPeekUnquoted.png)
 
 **Coverage after test:**
-![](/img/CoverageNellyPeekUnquotedAnfter.png)
+![](/img/CoverageNellyPeekUnquotedAfter.png)
 
 Added tests in /gson/src/main/java/com/google/gson/stream/JsonReader.java to improve branch coverage in nextUnquotedValue() by covering a branch that was not covered before, as shown in the pictures:
 
