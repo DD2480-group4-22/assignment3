@@ -198,10 +198,10 @@ public void testHashtag() throws IOException {
   }
 ```
 **Coverage before test:**
-![](/img/AnnaCoverageBefore#.png)
+![](/img/AnnaCoverageBefore1.png)
 
 **Coverage after test:**
-![](/img/AnnaCoverageAfter#.png)
+![](/img/AnnaCoverageAfter1.png)
 
 2. 
 Added test for equals in isLiteral in JsonReaderTest.java
@@ -220,11 +220,11 @@ Added test for equals in isLiteral in JsonReaderTest.java
   }
   ```
 
-**Coverage before test**
-![](/img/AnnaCoverageBefore=.png)
+**Coverage before test:**
+![](/img/AnnaCoverageBefore2.png)
 
-**Coverage after test**
-![](/img/AnnaCoverageAfter=.png)
+**Coverage after test:**
+![](/img/AnnaCoverageAfter2.png)
 
 **Coverage for isLiteral**
 Coverage of the method isLiteral before any added test were 71.4% and after the two added test it is 81%.
