@@ -161,7 +161,7 @@ Each group member made their own coverage tool for one method
 ### Anna
 
 ### Elsa
-
+Made a coverage tool for doPeek in JsonReader.java in the branch branch_coverage_elsa. The code can be found in [JsonReader.java](https://github.com/DD2480-group4-22/gson/blob/branch_coverage_elsa/gson/src/main/java/com/google/gson/stream/JsonReader.java) (the method doPeek() and [JsonReaderTest.java](https://github.com/DD2480-group4-22/gson/blob/branch_coverage_elsa/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java) (at the end of the file, the @AfterClass). Works by setting a value in a boolean array to true if the branch is taken. Read Oskar's text for more info.
 ### Jacob
 
 ### Nelly
