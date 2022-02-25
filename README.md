@@ -104,7 +104,7 @@ Every group member also counted the complexity of one of their choosen methods b
 4. **peek**: CCN = E - N + 2 = 40 - 23 + 2 = 19
 5. **isLiteral**: CCN = (#case + #fallthroughs) - #states + 2 = (17+15) - 17 + 2 = 17
 
-* There were three methods were the values of complexity counted by hand did not match the values from lizard. The difference in the methods doPeek and skipUnquotedValue is 2 and the difference for the method nextLong is 4, so it is a marginal difference. 
+* There were three methods were the values of complexity counted by hand did not match the values from lizard. The difference in the methods doPeek and skipUnquotedValue is 2 and the difference for the method nextLong is 4, so it is a marginal difference.
 
 ## Refactoring
 We found five functions with high complexity that all had code duplication between them. These methods are in JsonReader.java and are **peek**(CCN 19), **nextdouble**(CCN 12), **nextInt**(CCN 12), **nextLong**(CCN 11) and **nextString**(CCN 8).
@@ -163,7 +163,11 @@ A coverage tool for the method isLiteral in the JsonReder.java, code can be foun
 
 ### Elsa
 Made a coverage tool for doPeek in JsonReader.java in the branch branch_coverage_elsa. The code can be found in [JsonReader.java](https://github.com/DD2480-group4-22/gson/blob/branch_coverage_elsa/gson/src/main/java/com/google/gson/stream/JsonReader.java) (the method doPeek() and [JsonReaderTest.java](https://github.com/DD2480-group4-22/gson/blob/branch_coverage_elsa/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java) (at the end of the file, the @AfterClass). Works by setting a value in a boolean array to true if the branch is taken. Read Oskar's text for more info.
+
 ### Jacob
+My manual branch coverage is for the methods **nextNonWhitespace** & **isLiteral**. The code can be found here at [JsonReader.java](https://github.com/DD2480-group4-22/gson/blob/branch_coverage_jacob/gson/src/main/java/com/google/gson/stream/JsonReader.java).
+
+I implemented it by having a public static boolean array field where each index was the ID for each branch. Each index starts as false. Each time it visited one of the branches it would set that ID/index as true, to show that the branch has been visited. Then when all 122 tests had run (124 with my own custom tests) the testing class [JsonReaderTest.java](https://github.com/DD2480-group4-22/gson/blob/branch_coverage_jacob/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java) for the class **JsonReader**  will print out the coverage for both the previously mentioned methods. I overloaded the `runTest()` function to count each test it does, run the test as normally and check if it is on the last test, if it is then it will print out the coverage results.
 
 ### Nelly
 My branch coverage tool for method peek() in JsonReader.java can be found in branch **branch_coverage_nelly** at this link: [https://github.com/DD2480-group4-22/gson/tree/branch_coverage_nelly](https://github.com/DD2480-group4-22/gson/tree/branch_coverage_nelly), where JsonReader.java and JsonReaderTest.java are the relevant files.
@@ -210,7 +214,7 @@ public void testHashtag() throws IOException {
 **Coverage after test:**
 ![](/img/AnnaCoverageAfter1.png)
 
-2. 
+2.
 Added test for equals in isLiteral in JsonReaderTest.java
 
 ```
@@ -288,7 +292,96 @@ public void testDateInvalidTimeZoneFormat() throws ParseException {
 ![](/img/Coverage_Elsa_after_2.2.png)
 
 ### Jacob
+I added 2 test cases for the method nextNonWhitespace in [JsonReader.java](https://github.com/DD2480-group4-22/gson/blob/branch_coverage_jacob/gson/src/main/java/com/google/gson/stream/JsonReader.java):
+```Java
+/**
+ * Test if nextNonWhitespace throws an IOException when a comment isn't terminated.
+ */
+public void testUnterminatedComment() throws IOException {
+  JsonReader reader = new JsonReader(reader("/* Got things to comment on"));
+  reader.setLenient(true);
+  try {
+    reader.callNextNonWhitespace(false);
+    assertFalse(reader.skipTo("*/"));
+  } catch (IOException expected) {
+  }
+}
 
+/**
+ * Test if nextNonWhitespace throws an IOException when a comment is almost terminated.
+ */
+public void testAlmostterminatedComment() throws IOException {
+  JsonReader reader = new JsonReader(reader("/* Got things to comment on*"));
+  reader.setLenient(true);
+  try {
+    reader.callNextNonWhitespace(false);
+    assertFalse(reader.skipTo("*/"));
+  } catch (IOException expected) {
+  }
+}
+```
+The class where the tests are can be found in: [JsonReaderTest.java](https://github.com/DD2480-group4-22/gson/blob/branch_coverage_jacob/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java)
+
+I used my own coverage tool to calculate the coverage of the method:
+**Coverage before tests:**
+```
+Coverage of nextNonWhitespace:
+0: true
+1: true
+2: true
+3: true
+4: true
+5: true
+6: true
+7: true
+8: true
+9: true
+10: true
+11: true
+12: false
+13: true
+14: true
+15: false
+16: true
+17: true
+18: true
+19: true
+20: true
+21: true
+22: true
+23: true
+24: true
+```
+
+**Coverage after the tests:**
+```
+Coverage of nextNonWhitespace:
+0: true
+1: true
+2: true
+3: true
+4: true
+5: true
+6: true
+7: true
+8: true
+9: true
+10: true
+11: true
+12: false
+13: true
+14: true
+15: true
+16: true
+17: true
+18: true
+19: true
+20: true
+21: true
+22: true
+23: true
+24: true
+```
 ### Nelly
 My own manually implemented coverage tool is not as detailed as using clover. This is since in clover you can see what specific testing-methods reach each branch and how many times. This can not be seen with mine but only if the branches have been reached, since it is a boolean array. The @AfterClass also only checks after all the tests in that file, but there are other tests in other files that could be executed after printCoveragePeek(). I still get the same results as with clover with what branches have been reached.
 
