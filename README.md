@@ -150,15 +150,7 @@ Then when running this command OpenClover generated HTML files that among other 
 mvn clean clover:setup test clover:aggregate clover:clover
 ```
 ### Your own coverage tool
-Show a patch (or link to a branch) that shows the instrumented code to
-gather coverage measurements.
-The patch is probably too long to be copied here, so please add
-the git command that is used to obtain the patch instead:
-git diff ...
-What kinds of constructs does your tool support, and how accurate is
-its output?
-
-Each group member made their own coverage tool for one method
+Each group member made their own coverage tool for one method:
 ### Anna
 A coverage tool for the method isLiteral in the JsonReder.java, code can be found in the branch "branch_coverage_anna", in JsonReader.java under the method isLiteral (https://github.com/DD2480-group4-22/gson/blob/branch_coverage_anna/gson/src/main/java/com/google/gson/stream/JsonReader.java) and in the JsonReaderTest.java under @afterclass (https://github.com/DD2480-group4-22/gson/blob/branch_coverage_anna/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java). When setting the value to true when a branch is taken (read Oskars text).
 
@@ -192,10 +184,6 @@ Our tools are limited to a specific method, although it with some work can be tr
 The coverage of specific branches seems to be consistent with OpenClover. We do not know how OpenClover calculates their coverage percentage, so it is hard to know if our percentage would be consistent with their's. 
 
 ## Coverage improvement
-Show the comments that describe the requirements for the coverage.
-Report of old coverage: [link]
-Report of new coverage: [link]
-
 Below follows the tests cases each group member added and the changes in coverage it made
 
 ### Anna
