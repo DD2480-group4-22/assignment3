@@ -166,6 +166,11 @@ Made a coverage tool for doPeek in JsonReader.java in the branch branch_coverage
 ### Jacob
 
 ### Nelly
+My branch coverage tool for method peek() in JsonReader.java can be found in branch **branch_coverage_nelly** at this link: [https://github.com/DD2480-group4-22/gson/tree/branch_coverage_nelly](https://github.com/DD2480-group4-22/gson/tree/branch_coverage_nelly), where JsonReader.java and JsonReaderTest.java are the relevant files.
+
+Using a boolean array with the size of the number of branch in peek(), so that every branch has its own ID, branch coverage is found. When a specfici branch has been reached, by a test (or other), that place in the array with index matching the ID for the branch is made true, showing of branch coverage. If not visited, that index is false. This printed in printCoveragePeek() in JsonReaderTest.java, which is executed after the test in that file due to the @AfterClass marking from Junit4.
+
+
 
 ### Oskar
 I made a coverage tool for the method skipUnquotedValue in JsonReader.java. The code can be found in the branch **branch_coverage_oskar** at this link: [https://github.com/DD2480-group4-22/gson/tree/branch_coverage_oskar](https://github.com/DD2480-group4-22/gson/tree/branch_coverage_oskar)
@@ -285,6 +290,7 @@ public void testDateInvalidTimeZoneFormat() throws ParseException {
 ### Jacob
 
 ### Nelly
+My own manually implemented coverage tool is not as detailed as using clover. This is since in clover you can see what specific testing-methods reach each branch and how many times. This can not be seen with mine but only if the branches have been reached, since it is a boolean array. The @AfterClass also only checks after all the tests in that file, but there are other tests in other files that could be executed after printCoveragePeek(). I still get the same results as with clover with what branches have been reached.
 
 ### Oskar
 I added five new test cases for skipUnquotedValue in (/gson/src/main/java/com/google/gson/stream/JsonReader.java). Each one of the tests covers a new branch that was not covered before.
