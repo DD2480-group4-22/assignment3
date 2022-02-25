@@ -223,7 +223,6 @@ Added test for equals in isLiteral in JsonReaderTest.java
   ```
 
 **Coverage before test:**
-
 ![](/img/AnnaCoverageBefore2.png)
 
 **Coverage after test:**
