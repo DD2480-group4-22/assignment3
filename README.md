@@ -350,6 +350,7 @@ Coverage of nextNonWhitespace:
 23: true
 24: true
 ```
+The tests before covered 23/25 branches.
 
 **Coverage after the tests:**
 ```
@@ -380,6 +381,8 @@ Coverage of nextNonWhitespace:
 23: true
 24: true
 ```
+With my tests, the test class now covers 24/25 branches.
+
 ### Nelly
 My own manually implemented coverage tool is not as detailed as using clover. This is since in clover you can see what specific testing-methods reach each branch and how many times. This can not be seen with mine but only if the branches have been reached, since it is a boolean array. The @AfterClass also only checks after all the tests in that file, but there are other tests in other files that could be executed after printCoveragePeek(). I still get the same results as with clover with what branches have been reached.
 
