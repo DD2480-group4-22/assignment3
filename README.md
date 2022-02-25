@@ -4,9 +4,24 @@ Name: Gson \
 URL: [https://github.com/DD2480-group4-22/gson](https://github.com/DD2480-group4-22/gson) \
 Gson is a library for Java that can be used to convert Java objects into their JSON representation and JSON strings into their Java object equivalent.
 ## Onboarding experience
-Building the project wasn’t difficult. To build the project either Maven or Gradle has to be installed. The group has used Maven before, it is well documented and easy to use, So therefore we decided to use it. All the dependencies for the project is downloaded and the project is built and tested with "mvn clean package". Some of us had a problem where there would be an error when building the project, but it was resolved by using an older version of java. To build the project Maven is necessary. Building and running the test went smoothly and no unexpected errors occurred. First time it took approximately 2 minutes to build and run the test which seems reasonable, running the test after building took approximately 30 seconds. The project is well documented, but the use of maven isn’t perfectly documented, though using maven is very standardized and well documented so it is easy to know what commands to run to work with the project.
+1. How easily can you build the project? Briefly describe if everything worked as documented or not:
+  (a) Did you have to install a lot of additional tools to build the software?
+    Building the project wasn’t difficult. To build the project either Maven or Gradle has to be installed. The group has used Maven before, it is well documented and easy to use, So therefore we decided to use it.
 
-Since everything went good for all of us running the project we continued on it.
+  (b) Were those tools well documented?
+    The project is well documented, but the use of maven isn’t perfectly documented, though using maven is very standardized and well documented so it is easy to know what commands to run to work with the project.
+
+  (c) Were other components installed automatically by the build script?
+    All the dependencies for the project is downloaded when you run Maven.
+
+  (d) Did the build conclude automatically without errors?
+    Some of us had a problem where there would be an error when building the project, but it was resolved by using an older version of java.
+    
+  (e) How well do examples and tests run on your system(s)?
+    Building and running the test went smoothly and no unexpected errors occurred. First time it took approximately 2 minutes to build and run the test which seems reasonable, running the test after building took approximately 30 seconds.
+
+2. Do you plan to continue or choose another project?
+  Since everything went good for all of us running the project we continued on it.
 
 ## Complexity
 The group used Lizard for calculating the complexity of the code. It checks both the number of lines in the code (but excluding lines with comments) and the cyclomatic complexity of the code. The results are very clear if you’re looking for the most complex functions since it gives a table of the most complex ones (CC > 15, length > 1000, lines of code > 1 000 000) at the end. You can use the -s flag to sort the most complex ones.
@@ -40,7 +55,6 @@ The method is considered to have a very high CC but it does not have so many lin
 NLOC: 125 \
 CCN: 41 \
 \
-
 This is the "main" method of the JsonReader. It checks the current token of the Json-file to see what it is and what it should be turned into. Since there are many different types of objects the Json could contain this method is naturally very complex.
 
 6. **parse** (/gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java) \
@@ -68,6 +82,17 @@ Exceptions with an if-statement would make a difference in the CCN and the amoun
 \
 The documentation for the method is one short line but is enough to say what the method does and together with the documentations of the class JsonReader() the different cases are clear. I would not however say that all outcomes are clear, since not all cases have return statements and thereby fall-through and another values is returned in a latter case. I would not say that the documentation provides information to make it clear why the code does so.
 
+9. **nextNonWhitespace** (/gson/gson/src/main/java/com/google/gson/stream/JsonReader.java) \
+NLOC: 68 \
+CCN: 16 \
+\
+Function returns the position of the next character that isn’t a whitespace or part of a comment. It is complex because it contains a mixture of switch cases and if & else statements that handle the different cases for this method, such as if the character is part of a comment or is a whitespace. The method seems decently sized, but the amount of conditional statements makes it very packed. However, the size isn’t the contributing factor for why it is complex. The method has quite a bit of documentation, but it doesn’t explain completely the branching paths it can take. This function can throw exceptions, but the program I used to check for cyclomatic complexity doesn’t seem to be taking into account if the code throws an exception.
+
+10. **isLiteral** (/gson/gson/src/main/java/com/google/gson/stream/JsonReader.java) \
+NLOC: 24 \
+CCN: 17 \
+\
+Function checks if a character sent as a parameter is a literal or not. It is complex because it contains a lot of switch cases with fallthrough. I got the same cyclomatic complexity when I calculated by hand as I got from the Lizard tool. The method is pretty short, but the complexity is very high. So I don’t think a large LOC means more complex code. The method has no documentation, but by looking at the code it is clear what it does. Exception handling is done by another function, though if it was included in the code it should’ve increased the cyclomatic complexity, as it can be seen as a branch the program can take.
 
 
 ### Counted by hand
@@ -77,19 +102,52 @@ Every group member also counted the complexity of one of their choosen methods b
 2. **nextLong**: CCN = E - N + 2 = 15 - 10 + 2 = 7
 3. **doPeek**: CCN = 43
 4. **peek**: CCN = E - N + 2 = 40 - 23 + 2 = 19
+5. **isLiteral**: CCN = (#case + #fallthroughs) - #states + 2 = (17+15) - 17 + 2 = 17 
 
 * Add comment regarding if the values match Lizard or not
 
 ## Refactoring
-Plan for refactoring complex code:
-Estimated impact of refactoring (lower CC, but other drawbacks?).
-Carried out refactoring (optional, P+):
-git diff ...
+We found five functions with high complexity that all had code duplication between them. These methods are in JsonReader.java and are **peek**(CCN 19), **nextdouble**(CCN 12), **nextInt**(CCN 12), **nextLong**(CCN 11) and **nextString**(CCN 8).
+
+This is the code that is duplicated in all those methods:
+```
+int p = peeked;
+if (p == PEEKED_NONE) {
+      p = doPeek();
+}
+```
+
+and we could refactor all the five methods by making this into its own method
+```
+private int assignP() {
+      int p = peeked;
+      if (p == PEEKED_NONE) {
+           p = doPeek();
+      } 
+      return p;	
+}
+```
+Then in the five methods we would only have to write
+``` 
+int p = assignP();
+```
+This would remove a decision from the methods, which would lower the CCN. One possible drawback is that it might be hard to understand what assignP() means and then you would have to go that method and read the documentation.
+
+
 ## Coverage
 ### Tools
-Document your experience in using a "new"/different coverage tool.
-How well was the tool documented? Was it possible/easy/difficult to
-integrate it with your build environment?
+The tool we used for coverage measurement was OpenClover. It was possible to use it with Maven and since we already used Maven for the project, it was rather easy to integrate it with the build environment. It was well documented and the only thing we had to do was to add this plugin to the pom.xml file:
+```
+<plugin>
+  <groupId>org.openclover</groupId>
+  <artifactId>clover-maven-plugin</artifactId>
+  <version>4.4.1</version>     
+</plugin>
+```
+Then when running this command OpenClover generated HTML files that among other things displayed the coverage of all methods:
+```
+mvn clean clover:setup test clover:aggregate clover:clover
+```
 ### Your own coverage tool
 Show a patch (or link to a branch) that shows the instrumented code to
 gather coverage measurements.
@@ -98,6 +156,21 @@ the git command that is used to obtain the patch instead:
 git diff ...
 What kinds of constructs does your tool support, and how accurate is
 its output?
+
+Each group member made their own coverage tool for one method
+### Anna
+
+### Elsa
+
+### Jacob
+
+### Nelly
+
+### Oskar
+I made a coverage tool for the method skipUnquotedValue in JsonReader.java. The code can be found in the branch **branch_coverage_oskar** at this link: [https://github.com/DD2480-group4-22/gson/tree/branch_coverage_oskar](https://github.com/DD2480-group4-22/gson/tree/branch_coverage_oskar)
+
+First I gave every branch of the method a unique ID. Then I made a boolean array with one element for each branch. In the method if a branch was reached its respective element in the array was set to true. Then in the JavaReaderTest class the results are printed out after all tests have been run. To make sure the printCoverage method was run after all tests I used the @AfterClass annotation. This annotation was not available for JUnit3 which the test class used, so I had to convert everything to JUnit4 in order to make it work.
+
 ### Evaluation
 1. How detailed is your coverage measurement?
 2. What are the limitations of your own tool?
@@ -106,7 +179,12 @@ its output?
 Show the comments that describe the requirements for the coverage.
 Report of old coverage: [link]
 Report of new coverage: [link]
-Test cases added: \
+
+Below follows the tests cases each group member added and the changes in coverage it made
+
+### Anna
+
+### Elsa
 1. In **ISO8601Utils.java**:\
 Added test for missing time-zones in ISO8601UtilsTest.java:
 ```
@@ -150,7 +228,79 @@ public void testDateInvalidTimeZoneFormat() throws ParseException {
 ![](/img/Coverage_Elsa_after_2.1.png)
 ![](/img/Coverage_Elsa_after_2.2.png)
 
-Number of test cases added: two per team member (P) or at least four (P+).
+### Jacob
+
+### Nelly
+
+### Oskar
+I added five new test cases for skipUnquotedValue in (/gson/src/main/java/com/google/gson/stream/JsonReader.java). Each one of the tests covers a new branch that was not covered before.
+ 
+1. 
+```
+  @Test
+  public void testSkipUnquotedSlash() throws IOException {
+    JsonReader reader = new JsonReader(reader("[" + 'x' + "/" + "]"));
+    reader.setLenient(true);
+    reader.beginArray();
+    reader.skipValue();
+    reader.endArray();
+    assertEquals(JsonToken.END_DOCUMENT, reader.peek());
+  }
+```
+2. 
+```
+  @Test
+  public void testSkipUnquotedBackslash() throws IOException {
+    JsonReader reader = new JsonReader(reader("[" + 'x' + "\\" + "]"));
+    reader.setLenient(true);
+    reader.beginArray();
+    reader.skipValue();
+    reader.endArray();
+    assertEquals(JsonToken.END_DOCUMENT, reader.peek());
+  }
+```
+3. 
+```
+  @Test
+  public void testSkipUnquotedSemicolon() throws IOException {
+    JsonReader reader = new JsonReader(reader("[" + 'x' + ";" + "]"));
+    reader.setLenient(true);
+    reader.beginArray();
+    reader.skipValue();
+    reader.endArray();
+    assertEquals(JsonToken.END_DOCUMENT, reader.peek());
+  }
+```
+4. 
+```
+  @Test
+  public void testSkipUnquotedHashtag() throws IOException {
+    JsonReader reader = new JsonReader(reader("[" + 'x' + "#" + "]"));
+    reader.setLenient(true);
+    reader.beginArray();
+    reader.skipValue();
+    reader.endArray();
+    assertEquals(JsonToken.END_DOCUMENT, reader.peek());
+  }
+```
+5. 
+```
+  @Test
+  public void testSkipUnquotedEquals() throws IOException {
+    JsonReader reader = new JsonReader(reader("[" + 'x' + "=" + "]"));
+    reader.setLenient(true);
+    reader.beginArray();
+    reader.skipValue();
+    reader.endArray();
+    assertEquals(JsonToken.END_DOCUMENT, reader.peek());
+  }
+```
+In the image below you can see the difference calculated by my own coverage tool between before and after adding the tests:
+![](/img/oskarToolBeforeAfter.png)
+
+Before 6/20 branches are covered and after 11/20 branches are covered.
+
+
 ## Self-assessment: Way of working
 According to the Essence standard of way-of-working our team is in the "working well" phase. We have established good communication and praxis of how to do the work that flows naturally. When assigned to task each team member is available to help one another if necessary and work flow is even. We have developed a understanding between each other and in the beginning we were all strangers but with regular communication we now know how we work and our strengths. Continue to work as we currently do with open communication and helping each other is the plan to move forward.
 
