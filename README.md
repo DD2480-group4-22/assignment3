@@ -82,6 +82,17 @@ Exceptions with an if-statement would make a difference in the CCN and the amoun
 \
 The documentation for the method is one short line but is enough to say what the method does and together with the documentations of the class JsonReader() the different cases are clear. I would not however say that all outcomes are clear, since not all cases have return statements and thereby fall-through and another values is returned in a latter case. I would not say that the documentation provides information to make it clear why the code does so.
 
+9. **nextNonWhitespace** (/gson/gson/src/main/java/com/google/gson/stream/JsonReader.java) \
+NLOC: 68 \
+CCN: 16 \
+\
+Function returns the position of the next character that isn’t a whitespace or part of a comment. It is complex because it contains a mixture of switch cases and if & else statements that handle the different cases for this method, such as if the character is part of a comment or is a whitespace. The method seems decently sized, but the amount of conditional statements makes it very packed. However, the size isn’t the contributing factor for why it is complex. The method has quite a bit of documentation, but it doesn’t explain completely the branching paths it can take. This function can throw exceptions, but the program I used to check for cyclomatic complexity doesn’t seem to be taking into account if the code throws an exception.
+
+10. **isLiteral** (/gson/gson/src/main/java/com/google/gson/stream/JsonReader.java) \
+NLOC: 24 \
+CCN: 17 \
+\
+Function checks if a character sent as a parameter is a literal or not. It is complex because it contains a lot of switch cases with fallthrough. I got the same cyclomatic complexity when I calculated by hand as I got from the Lizard tool. The method is pretty short, but the complexity is very high. So I don’t think a large LOC means more complex code. The method has no documentation, but by looking at the code it is clear what it does. Exception handling is done by another function, though if it was included in the code it should’ve increased the cyclomatic complexity, as it can be seen as a branch the program can take.
 
 
 ### Counted by hand
@@ -91,6 +102,7 @@ Every group member also counted the complexity of one of their choosen methods b
 2. **nextLong**: CCN = E - N + 2 = 15 - 10 + 2 = 7
 3. **doPeek**: CCN = 43
 4. **peek**: CCN = E - N + 2 = 40 - 23 + 2 = 19
+5. **isLiteral**: CCN = (#case + #fallthroughs) - #states + 2 = (17+15) - 17 + 2 = 17 
 
 * Add comment regarding if the values match Lizard or not
 
