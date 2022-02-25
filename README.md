@@ -286,6 +286,53 @@ public void testDateInvalidTimeZoneFormat() throws ParseException {
 
 ### Nelly
 
+Added tests in /gson/src/main/java/com/google/gson/stream/JsonReader.java to improve branch coverage in peek() by covering a branch that was not covered before, as shown in the pictures:
+
+```
+  @Test
+  public void testEmptyStringNameSingleQuoted() throws IOException {
+    JsonReader reader = new JsonReader(reader("{\'\':true}"));
+    reader.setLenient(true);
+    assertEquals(BEGIN_OBJECT, reader.peek());
+    reader.beginObject();
+    assertEquals(NAME, reader.peek());
+    assertEquals("", reader.nextName());
+    assertEquals(JsonToken.BOOLEAN, reader.peek());
+    assertEquals(true, reader.nextBoolean());
+    assertEquals(JsonToken.END_OBJECT, reader.peek());
+      reader.endObject();
+    assertEquals(JsonToken.END_DOCUMENT, reader.peek());
+  }
+```
+**Coverage before test:**
+![](/img/CoverageNellyPeekUnquoted.png)
+
+**Coverage after test:**
+![](/img/CoverageNellyPeekUnquotedAnfter.png)
+
+Added tests in /gson/src/main/java/com/google/gson/stream/JsonReader.java to improve branch coverage in nextUnquotedValue() by covering a branch that was not covered before, as shown in the pictures:
+
+```
+  @Test
+  public void testLenientDoubleSemiColon() throws IOException {
+    String json = "[NaN; Infinity; -Infinity]";
+    JsonReader reader = new JsonReader(reader(json));
+    reader.setLenient(true);
+    reader.beginArray();
+    assertTrue(Double.isNaN(reader.nextDouble()));
+    assertEquals(Double.POSITIVE_INFINITY, reader.nextDouble(), 0);
+    assertEquals(Double.NEGATIVE_INFINITY, reader.nextDouble(), 0);
+    reader.endArray();
+  }
+```
+
+**Coverage before test:**
+![](/img/CoverageNellyNextUnquotedValue.png)
+
+**Coverage after test:**
+![](/img/CoverageNellyPeekNUVAfter.png)
+
+
 ### Oskar
 I added five new test cases for skipUnquotedValue in (/gson/src/main/java/com/google/gson/stream/JsonReader.java). Each one of the tests covers a new branch that was not covered before.
 
