@@ -289,68 +289,71 @@ I added five new test cases for skipUnquotedValue in (/gson/src/main/java/com/go
 
 1.
 ```
-  @Test
+@Test
   public void testSkipUnquotedSlash() throws IOException {
-    JsonReader reader = new JsonReader(reader("[" + 'x' + "/" + "]"));
+    JsonReader reader = new JsonReader(reader("{" + "x" + "/"));
     reader.setLenient(true);
-    reader.beginArray();
+    assertEquals(JsonToken.BEGIN_OBJECT, reader.peek());
+    reader.beginObject();
     reader.skipValue();
-    reader.endArray();
-    assertEquals(JsonToken.END_DOCUMENT, reader.peek());
   }
 ```
 2.
 ```
   @Test
   public void testSkipUnquotedBackslash() throws IOException {
-    JsonReader reader = new JsonReader(reader("[" + 'x' + "\\" + "]"));
+    JsonReader reader = new JsonReader(reader("{" + "x" + "\\"));
     reader.setLenient(true);
-    reader.beginArray();
+    assertEquals(JsonToken.BEGIN_OBJECT, reader.peek());
+    reader.beginObject();
     reader.skipValue();
-    reader.endArray();
-    assertEquals(JsonToken.END_DOCUMENT, reader.peek());
   }
 ```
 3.
 ```
   @Test
   public void testSkipUnquotedSemicolon() throws IOException {
-    JsonReader reader = new JsonReader(reader("[" + 'x' + ";" + "]"));
+    JsonReader reader = new JsonReader(reader("[" + "x" + ";"));
     reader.setLenient(true);
+    assertEquals(JsonToken.BEGIN_ARRAY, reader.peek());
     reader.beginArray();
     reader.skipValue();
-    reader.endArray();
-    assertEquals(JsonToken.END_DOCUMENT, reader.peek());
   }
 ```
 4.
 ```
   @Test
   public void testSkipUnquotedHashtag() throws IOException {
-    JsonReader reader = new JsonReader(reader("[" + 'x' + "#" + "]"));
+    JsonReader reader = new JsonReader(reader("{" + "x" + "#"));
     reader.setLenient(true);
-    reader.beginArray();
+    assertEquals(JsonToken.BEGIN_OBJECT, reader.peek());
+    reader.beginObject();
     reader.skipValue();
-    reader.endArray();
-    assertEquals(JsonToken.END_DOCUMENT, reader.peek());
   }
 ```
 5.
 ```
   @Test
   public void testSkipUnquotedEquals() throws IOException {
-    JsonReader reader = new JsonReader(reader("[" + 'x' + "=" + "]"));
+    JsonReader reader = new JsonReader(reader("[" + "x" + "="));
     reader.setLenient(true);
+    assertEquals(JsonToken.BEGIN_ARRAY, reader.peek());
     reader.beginArray();
     reader.skipValue();
-    reader.endArray();
-    assertEquals(JsonToken.END_DOCUMENT, reader.peek());
   }
 ```
 In the image below you can see the difference calculated by my own coverage tool between before and after adding the tests:
 ![](/img/oskarToolBeforeAfter.png)
 
 Before 6/20 branches are covered and after 11/20 branches are covered.
+
+According to OpenClover the branch coverage went from 46,4% to 67,9% after adding the tests, which can be seen in the image below:
+
+![](/img/OskarCoverageClover.png)
+
+The
+
+![](/img/OskarCoverageBeforeAfter.png)
 
 
 ## Self-assessment: Way of working
