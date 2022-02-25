@@ -153,6 +153,46 @@ Report of new coverage: [link]
 Below follows the tests cases each group member added and the changes in coverage it made
 
 ### Anna
+1. Added test for hashtag in isLiteral in JsonReaderTest.java
+  ```
+  public void testHashtag() throws IOException {
+    JsonReader reader = new JsonReader(reader("[true#true]"));
+    reader.beginArray();
+    try {
+      reader.nextBoolean();
+      reader.nextBoolean();
+      fail();
+    } catch (IOException expected) {
+    }
+  }
+```
+**Coverage before test**
+![](/img/AnnaCoverageBefore#.png)
+
+**Coverage after test**
+![](/img/AnnaCoverageAfter#.png)
+2. 
+Added test for equals in isLiteral in JsonReaderTest.java
+
+```
+  public void testHashtag() throws IOException {
+    JsonReader reader = new JsonReader(reader("[true#true]"));
+    reader.beginArray();
+    try {
+      reader.nextBoolean();
+      reader.nextBoolean();
+      fail();
+    } catch (IOException expected) {
+    }
+  }
+  ```
+
+**Coverage before test**
+![](/img/AnnaCoverageBefore=.png)
+
+**Coverage after test**
+![](/img/AnnaCoverageAfter=.png)
+
 
 ### Elsa
 1. In **ISO8601Utils.java**:\
