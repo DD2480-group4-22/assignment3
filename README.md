@@ -290,6 +290,53 @@ public void testDateInvalidTimeZoneFormat() throws ParseException {
 ### Nelly
 My own manually implemented coverage tool is not as detailed as using clover. This is since in clover you can see what specific testing-methods reach each branch and how many times. This can not be seen with mine but only if the branches have been reached, since it is a boolean array. The @AfterClass also only checks after all the tests in that file, but there are other tests in other files that could be executed after printCoveragePeek(). I still get the same results as with clover with what branches have been reached.
 
+Added tests in /gson/src/main/java/com/google/gson/stream/JsonReader.java to improve branch coverage in peek() by covering a branch that was not covered before, as shown in the pictures:
+
+```
+  @Test
+  public void testEmptyStringNameSingleQuoted() throws IOException {
+    JsonReader reader = new JsonReader(reader("{\'\':true}"));
+    reader.setLenient(true);
+    assertEquals(BEGIN_OBJECT, reader.peek());
+    reader.beginObject();
+    assertEquals(NAME, reader.peek());
+    assertEquals("", reader.nextName());
+    assertEquals(JsonToken.BOOLEAN, reader.peek());
+    assertEquals(true, reader.nextBoolean());
+    assertEquals(JsonToken.END_OBJECT, reader.peek());
+      reader.endObject();
+    assertEquals(JsonToken.END_DOCUMENT, reader.peek());
+  }
+```
+**Coverage before test:**
+![](/img/CoverageNellyPeekUnquoted.png)
+
+**Coverage after test:**
+![](/img/CoverageNellyPeekUnquotedAfter.png)
+
+Added tests in /gson/src/main/java/com/google/gson/stream/JsonReader.java to improve branch coverage in nextUnquotedValue() by covering a branch that was not covered before, as shown in the pictures:
+
+```
+  @Test
+  public void testLenientDoubleSemiColon() throws IOException {
+    String json = "[NaN; Infinity; -Infinity]";
+    JsonReader reader = new JsonReader(reader(json));
+    reader.setLenient(true);
+    reader.beginArray();
+    assertTrue(Double.isNaN(reader.nextDouble()));
+    assertEquals(Double.POSITIVE_INFINITY, reader.nextDouble(), 0);
+    assertEquals(Double.NEGATIVE_INFINITY, reader.nextDouble(), 0);
+    reader.endArray();
+  }
+```
+
+**Coverage before test:**
+![](/img/CoverageNellyNextUnquotedValue.png)
+
+**Coverage after test:**
+![](/img/CoverageNellyPeekNUVAfter.png)
+
+
 ### Oskar
 I added five new test cases for skipUnquotedValue in (/gson/src/main/java/com/google/gson/stream/JsonReader.java). Each one of the tests covers a new branch that was not covered before.
 
